@@ -1,7 +1,11 @@
 return {
   -- Autocompletion
   'hrsh7th/nvim-cmp',
-  dependencies = { { 'hrsh7th/cmp-nvim-lsp', dependencies = { 'rafamadriz/friendly-snippets', 'L3MON4D3/LuaSnip' } },
+  dependencies = {
+    {
+      'hrsh7th/cmp-nvim-lsp',
+      dependencies = { 'L3MON4D3/LuaSnip' }
+    },
     'saadparwaiz1/cmp_luasnip', 'hrsh7th/cmp-path', 'hrsh7th/cmp-cmdline', 'hrsh7th/cmp-buffer' },
   config = function()
     local kind_icons = {
@@ -33,8 +37,11 @@ return {
     }
 
     -- Set up nvim-cmp.
+    local ELLIPSIS_CHAR = '…'
+    local MAX_LABEL_WIDTH = 20
+    local MIN_LABEL_WIDTH = 20
     local cmp = require 'cmp'
-
+    require("luasnip.loaders.from_vscode").lazy_load()
     cmp.setup({
       snippet = {
         -- REQUIRED - you must specify a snippet engine
@@ -73,11 +80,13 @@ return {
 
       sources = cmp.config.sources({ -- The sequence in which these are mentioned determines their priority
         { name = 'nvim_lsp' },
+        -- { name = 'cmp_tabnine' },
         -- { name = 'vsnip' },     -- For vsnip users.
         { name = 'luasnip' }, -- For luasnip users.
         -- { name = 'ultisnips' }, -- For ultisnips users.
         -- { name = 'snippy' }, -- For snippy users.
         { name = 'buffer' },
+        { name = 'path' },
       }),
 
 
@@ -91,10 +100,19 @@ return {
           vim_item.menu = ({
             nvim_lsp = " ",
             buffer = " ",
+            -- cmp_tabnine = " ",
             luasnip = " ",
             path = "",
-            treesitter = " ",
           })[entry.source.name]
+
+          local label = vim_item.abbr
+          local truncated_label = vim.fn.strcharpart(label, 0, MAX_LABEL_WIDTH)
+          if truncated_label ~= label then
+            vim_item.abbr = truncated_label .. ELLIPSIS_CHAR
+          elseif string.len(label) < MIN_LABEL_WIDTH then
+            local padding = string.rep(' ', MIN_LABEL_WIDTH - string.len(label))
+            vim_item.abbr = label .. padding
+          end
           return vim_item
         end,
       },

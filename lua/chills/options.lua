@@ -5,7 +5,8 @@ local g = vim.g
 
 opt.hidden = true
 opt.ch = 0
-opt.pumheight = 9
+opt.pumheight = 4
+opt.cmdheight = 0
 opt.fileencoding = 'utf-8'
 opt.splitbelow = true
 opt.list = true

@@ -1,4 +1,4 @@
-return{
+return {
   'glepnir/dashboard-nvim',
   event = 'VimEnter',
   config = function()
@@ -6,7 +6,7 @@ return{
       theme = 'hyper',
       config = {
         week_header = {
-         enable = true,
+          enable = true,
         },
         shortcut = {
           { desc = ' Update', group = '@property', action = 'Lazy update', key = 'u' },
@@ -34,5 +34,5 @@ return{
       }
     }
   end,
-  dependencies = { {'nvim-tree/nvim-web-devicons'}}
+  dependencies = { { 'nvim-tree/nvim-web-devicons' } }
 }

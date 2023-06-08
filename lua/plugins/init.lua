@@ -4,12 +4,10 @@ return {
     event = "VeryLazy",
     opts = {},
   },
-
+  { 'Everblush/nvim', name = 'everblush' },
   "mhinz/vim-sayonara",
   "jiangmiao/auto-pairs",
-  "stevearc/dressing.nvim",
   'tpope/vim-sleuth',
-
   {
     "brenoprata10/nvim-highlight-colors", opts = {}
   },

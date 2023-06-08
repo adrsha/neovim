@@ -49,7 +49,6 @@ vim.keymap.set("n", "<S-l>", "<CMD>bnext<CR>")
 vim.keymap.set("n", "<S-h>", "<CMD>bprev<CR>")
 
 
-
 -- BetterEscape
 -- In /setups/betterescape.lua
 
@@ -59,14 +58,12 @@ vim.keymap.set("n", "<S-h>", "<CMD>bprev<CR>")
 -- Using the defaults
 
 
-
 --Telescope
 vim.keymap.set("n", "<leader>fr", "<CMD>Telescope oldfiles<CR>")
 vim.keymap.set("n", "<leader>lg", "<CMD>Telescope live_grep<CR>")
 vim.keymap.set("n", "<leader>ss", "<CMD>Telescope spell_suggest<CR>")
 vim.keymap.set("n", "<leader>ff", "<CMD>Telescope fd<CR>")
 -- Telescope shortcuts are in setups/Telescope
-
 
 -- Dressing.nvim
 -- in /-- In /setups/dressing.lua
@@ -84,15 +81,21 @@ vim.keymap.set("n", "<C->>", vim.diagnostic.goto_next, opts)
 vim.keymap.set("i", "<C-i>", "<cmd>IconPickerInsert<cr>", opts)
 vim.keymap.set("n", "<C-i>", "<cmd>IconPickerInsert<cr>", opts)
 
-
-
 -- Search and Replace
 vim.keymap.set({ "n", "x" }, "<leader>sr", function() require("ssr").open() end)
 
+--FTERM
+vim.keymap.set('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
+vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
 
 
+vim.keymap.set("i", "<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", opts)
+vim.keymap.set("s", "<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", opts)
+vim.keymap.set("i", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
+vim.keymap.set("s", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
 
 vim.cmd [[
+
 
 " press <Tab> to expand or jump in a snippet. These can also be mapped separately
 " via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.

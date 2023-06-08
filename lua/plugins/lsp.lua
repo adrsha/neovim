@@ -13,12 +13,13 @@ return {
   config = function()
     -- Setup language servers.
     local lspconfig = require('lspconfig')
-    lspconfig.pyright.setup {}
+    lspconfig.pylsp.setup {}
+    lspconfig.clangd.setup {}
     lspconfig.lua_ls.setup {}
     lspconfig.emmet_ls.setup {}
+    lspconfig.bashls.setup {}
     lspconfig.cssls.setup {}
     lspconfig.html.setup {}
-
 
     -- Global mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -38,6 +39,17 @@ return {
         border = "rounded"
       }
     )
+    vim.lsp.handlers["textDocument/publishDiagnostics"] =
+        vim.lsp.with(
+          vim.lsp.diagnostic.on_publish_diagnostics,
+          {
+            underline = false,
+          },
+          vim.lsp.diagnostic.open_float,
+          {
+            border = "rounded"
+          }
+        )
     -- Use LspAttach autocommand to only map the following keys
     -- after the language server attaches to the current buffer
     vim.api.nvim_create_autocmd('LspAttach', {
