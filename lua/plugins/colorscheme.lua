@@ -1,1 +1,1 @@
-/home/chilly/Themes/nvim/material
+/home/chilly/Themes/nvim/code

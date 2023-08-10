@@ -17,4 +17,3 @@ return { -- Add indentation guides even on blank lines
     show_current_context = true,
   },
 }
-

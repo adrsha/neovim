@@ -5,10 +5,8 @@ return {
     -- Automatically install LSPs to stdpath for neovim
     { 'williamboman/mason.nvim',           config = true },
     { 'williamboman/mason-lspconfig.nvim', opts = {} },
-
     -- Useful status updates for LSP
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    { 'j-hui/fidget.nvim',                 opts = {} },
   },
   config = function()
     -- Setup language servers.
@@ -24,8 +22,8 @@ return {
     -- Global mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
     vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+    vim.keymap.set('n', '[e', vim.diagnostic.goto_prev)
+    vim.keymap.set('n', ']e', vim.diagnostic.goto_next)
     vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
 

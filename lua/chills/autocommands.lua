@@ -52,5 +52,37 @@ vim.cmd([[
   highlight IndentBlanklineChar guifg=#1E1E2E gui=nocombine
   highlight IndentBlanklineContextStart guibg=#1E1E2E gui=nocombine
   highlight IndentBlanklineContextChar guifg=#1E1E2E gui=nocombine
+
   highlight IndentBlanklineContextSpaceChar gui=nocombine
+
+highlight NotifyERRORBorder guifg=#F28FAD
+highlight NotifyWARNBorder guifg=#FAE3B0
+highlight NotifyINFOBorder guifg=#ABE9B3
+highlight NotifyDEBUGBorder guifg=#575268
+highlight NotifyTRACEBorder guifg=#988BA2
+
+highlight NotifyERRORIcon guifg=#F5C2E7
+highlight NotifyWARNIcon guifg=#F8BD96
+highlight NotifyINFOIcon guifg=#ABE9B3
+highlight NotifyDEBUGIcon guifg=#6E6C7E
+highlight NotifyTRACEIcon guifg=#DDB6F2
+highlight NotifyERRORTitle  guifg=#F5C2E7
+highlight NotifyWARNTitle guifg=#F8BD96
+highlight NotifyINFOTitle guifg=#ABE9B3
+highlight NotifyDEBUGTitle  guifg=#6E6C7E
+highlight NotifyTRACETitle  guifg=#DDB6F2
+highlight link NotifyERRORBody Normal
+highlight link NotifyWARNBody Normal
+highlight link NotifyINFOBody Normal
+highlight link NotifyDEBUGBody Normal
+highlight link NotifyTRACEBody Normal
+
+
+highlight TSRainbowOrange  guifg=#F8BD96 ctermfg=White
+highlight TSRainbowRed  guifg=#F28FAD ctermfg=White
+highlight TSRainbowYellow  guifg=#FAE3B0 ctermfg=White
+highlight TSRainbowBlue  guifg=#96CDFB ctermfg=White
+highlight TSRainbowGreen  guifg=#988BA2 ctermfg=White
+highlight TSRainbowViolet  guifg=#DDB6F2 ctermfg=White
+highlight TSRainbowCyan  guifg=#89DCEB ctermfg=White
 ]])

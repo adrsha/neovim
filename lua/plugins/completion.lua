@@ -9,31 +9,31 @@ return {
     'saadparwaiz1/cmp_luasnip', 'hrsh7th/cmp-path', 'hrsh7th/cmp-cmdline', 'hrsh7th/cmp-buffer' },
   config = function()
     local kind_icons = {
-      Text = "",
+      Text = "",
       Method = "m",
-      Function = "",
+      Function = "𝛏",
       Constructor = "",
       Field = "",
-      Variable = "",
-      Class = "",
+      Variable = "Φ",
+      Class = "∐ ",
       Interface = "",
       Module = "",
       Property = "",
       Unit = "",
-      Value = "",
+      Value = "¾",
       Enum = "",
-      Keyword = "",
+      Keyword = " ",
       Snippet = "",
       Color = "",
-      File = "",
+      File = "",
       Reference = "",
-      Folder = "",
+      Folder = "",
       EnumMember = "",
-      Constant = "",
+      Constant = "π",
       Struct = "",
       Event = "",
-      Operator = "",
-      TypeParameter = "",
+      Operator = "",
+      TypeParameter = "()",
     }
 
     -- Set up nvim-cmp.
@@ -61,8 +61,8 @@ return {
       mapping = cmp.mapping.preset.insert({
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
+        ['<C-Space>'] = cmp.mapping.abort(),
+        ['<C-e>'] = cmp.mapping.complete(),
         ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
         ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
@@ -98,7 +98,7 @@ return {
           vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
           -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
           vim_item.menu = ({
-            nvim_lsp = " ",
+            nvim_lsp = " ",
             buffer = " ",
             -- cmp_tabnine = " ",
             luasnip = " ",

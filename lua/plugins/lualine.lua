@@ -17,7 +17,7 @@ return {
     require("lualine").setup {
       options = {
         theme = custom_catppuccin,
-        component_separators = "",
+        component_separators = " ",
         section_separators = { left = "", right = "" },
       },
       sections = {
@@ -41,7 +41,7 @@ return {
           {
             "buffers",
             separator = { left = "", right = "" },
-            right_padding = 2,
+            right_padding = 4,
             symbols = { alternate_file = "" },
           },
         },

@@ -34,7 +34,7 @@ opt.cursorline = true
 opt.tabstop = 2
 opt.softtabstop = 2
 opt.shiftwidth = 0
-opt.autoindent = true
+opt.autoindent = false
 opt.wrap = false
 opt.expandtab = true
 opt.fillchars:append('eob: ')
