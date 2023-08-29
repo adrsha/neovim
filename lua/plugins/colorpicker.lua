@@ -15,9 +15,9 @@ return {
       -- ["icons"] = { "", "ﰕ" },
       -- ["icons"] = { "", "" },
       -- ["icons"] = { "", "" },
-      ["icons"] = { "█", "" },
-      ["border"] = "rounded", -- none | single | double | rounded | solid | shadow
-      ["keymap"] = {          -- mapping example:
+      ["icons"] = { "█", "" },
+      ["border"] = "single", -- none | single | double | rounded | solid | shadow
+      ["keymap"] = {         -- mapping example:
         ["U"] = "<Plug>ColorPickerSlider5Decrease",
         ["O"] = "<Plug>ColorPickerSlider5Increase",
       },

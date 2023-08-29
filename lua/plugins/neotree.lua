@@ -18,7 +18,7 @@ return {
 
     require("neo-tree").setup({
       close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
-      popup_border_style = "rounded",
+      popup_border_style = "single",
       enable_git_status = true,
       enable_diagnostics = true,
       enable_normal_mode_for_inputs = false,                             -- Enable normal mode for input dialogs.
@@ -242,5 +242,11 @@ return {
     })
 
     vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
+    vim.cmd [[
+    highlight NeoTreeGitDeleted guifg=#C9CBFF
+    highlight NeoTreeGitModified guifg=#F6CC7C
+    highlight NeoTreeGitConflict gui=bold,italic guifg=#6E6C7E
+    highlight NeoTreeGitUntracked gui=italic guifg=#6E6C7E
+    ]]
   end
 }

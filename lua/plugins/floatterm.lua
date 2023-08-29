@@ -11,7 +11,7 @@ return {
     cmd = os.getenv('SHELL'),
 
     ---Neovim's native window border. See `:h nvim_open_win` for more configuration options.
-    border = 'rounded',
+    border = 'single',
 
     ---Close the terminal as soon as shell/command exits.
     ---Disabling this will mimic the native terminal behaviour.

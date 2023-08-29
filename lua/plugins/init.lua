@@ -5,8 +5,6 @@ return {
     opts = {},
   },
   'cohama/lexima.vim',
-  {
-    'nvim-telescope/telescope.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' }
-  }
+  { "rafamadriz/friendly-snippets" },
+  { "weilbith/nvim-code-action-menu" },
 }

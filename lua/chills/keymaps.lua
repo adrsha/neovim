@@ -90,8 +90,10 @@ vim.keymap.set("n", "<C->>", vim.diagnostic.goto_next, opts)
 
 
 -- Icon Picker
--- vim.keymap.set("i", "<C-i>", "<cmd>IconPickerInsert<cr>", opts)
--- vim.keymap.set("n", "<C-i>", "<cmd>IconPickerInsert<cr>", opts)
+-- vim.keymap.set("i", "<C-i>", "<cmd>Telescope symbols<cr>", opts)
+-- vim.keymap.set("n", "<C-i>", "<cmd>Telescope symbols<cr>", opts)
+vim.keymap.set("i", "<C-i>", "<cmd>IconPickerInsert<cr>", opts)
+vim.keymap.set("n", "<C-i>", "<cmd>IconPickerInsert<cr>", opts)
 
 
 --FTERM
@@ -117,9 +119,9 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
 vim.keymap.set("n", "\\", "<cmd>Neotree<CR>", opts)
 
 --Flutter
-vim.keymap.set("n", "<leader><leader>f", "<cmd>FlutterRun<CR>", opts)
-vim.keymap.set("n", "<leader><leader>r", "<cmd>FlutterReload<CR>", opts)
-vim.keymap.set("n", "<leader><leader>R", "<cmd>FlutterRestart<CR>", opts)
+vim.keymap.set("n", "<leader>flf", "<cmd>FlutterRun<CR>", opts)
+vim.keymap.set("n", "<leader>flr", "<cmd>FlutterReload<CR>", opts)
+vim.keymap.set("n", "<leader>flR", "<cmd>FlutterRestart<CR>", opts)
 
 
 -- treesitter unit
@@ -127,3 +129,9 @@ vim.api.nvim_set_keymap('x', 'iu', ':lua require"treesitter-unit".select()<CR>',
 vim.api.nvim_set_keymap('x', 'au', ':lua require"treesitter-unit".select(true)<CR>', { noremap = true })
 vim.api.nvim_set_keymap('o', 'iu', ':<c-u>lua require"treesitter-unit".select()<CR>', { noremap = true })
 vim.api.nvim_set_keymap('o', 'au', ':<c-u>lua require"treesitter-unit".select(true)<CR>', { noremap = true })
+
+-- navbuddy
+vim.keymap.set("n", "<leader><leader>", "<cmd>Navbuddy<CR>", opts)
+
+-- yanky
+vim.keymap.set("n", "<leader>y", "<cmd>Telescope yank_history<CR>", opts)

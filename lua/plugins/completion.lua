@@ -6,7 +6,9 @@ return {
       'hrsh7th/cmp-nvim-lsp',
       dependencies = { 'L3MON4D3/LuaSnip' }
     },
-    'saadparwaiz1/cmp_luasnip', 'hrsh7th/cmp-path', 'hrsh7th/cmp-cmdline', 'hrsh7th/cmp-buffer' },
+    -- 'chrisgrieser/cmp-nerdfont',
+    'saadparwaiz1/cmp_luasnip', 'hrsh7th/cmp-path', 'hrsh7th/cmp-cmdline',
+    'hrsh7th/cmp-buffer' },
   config = function()
     local kind_icons = {
       Text = "",
@@ -35,7 +37,6 @@ return {
       Operator = "",
       TypeParameter = "()",
     }
-
     -- Set up nvim-cmp.
     local ELLIPSIS_CHAR = '…'
     local MAX_LABEL_WIDTH = 20
@@ -54,15 +55,19 @@ return {
       },
 
       window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
+        completion = cmp.config.window.bordered({
+          border = 'single',
+        }),
+        documentation = cmp.config.window.bordered({
+          border = 'single',
+        }),
       },
 
       mapping = cmp.mapping.preset.insert({
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.abort(),
-        ['<C-e>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<C-space>'] = cmp.mapping.complete(),
         ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
         ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
@@ -80,6 +85,8 @@ return {
 
       sources = cmp.config.sources({ -- The sequence in which these are mentioned determines their priority
         { name = 'nvim_lsp' },
+        { name = 'nvim_lsp_signature_help' },
+        { name = 'nerdfont' },
         -- { name = 'cmp_tabnine' },
         -- { name = 'vsnip' },     -- For vsnip users.
         { name = 'luasnip' }, -- For luasnip users.
@@ -88,7 +95,6 @@ return {
         { name = 'buffer' },
         { name = 'path' },
       }),
-
 
 
       formatting = {
@@ -100,6 +106,7 @@ return {
           vim_item.menu = ({
             nvim_lsp = " ",
             buffer = " ",
+            nerdfont = " ",
             -- cmp_tabnine = " ",
             luasnip = " ",
             path = "",

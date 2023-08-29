@@ -2,6 +2,7 @@ return {
   -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
   dependencies = {
+
     -- Automatically install LSPs to stdpath for neovim
     { 'williamboman/mason.nvim',           config = true },
     { 'williamboman/mason-lspconfig.nvim', opts = {} },
@@ -25,27 +26,42 @@ return {
     vim.keymap.set('n', '[e', vim.diagnostic.goto_prev)
     vim.keymap.set('n', ']e', vim.diagnostic.goto_next)
     vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-
+    vim.diagnostic.config({
+      virtual_text = false,
+      update_in_insert = true,
+      underline = false,
+      severity_sort = true,
+      float = {
+        focusable = false,
+        border = 'single',
+      },
+    })
 
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
       vim.lsp.handlers.hover, {
         -- Use a sharp border with `FloatBorder` highlights
-        border = "rounded",
-      },
-      vim.lsp.handlers.signature_help, {
-        -- Use a sharp border with `FloatBorder` highlights
-        border = "rounded"
+        border = "single",
       }
     )
+
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+      vim.lsp.handlers.signature_help, {
+        -- Use a sharp border with `FloatBorder` highlights
+        border = "single"
+      }
+    )
+
+
     vim.lsp.handlers["textDocument/publishDiagnostics"] =
         vim.lsp.with(
           vim.lsp.diagnostic.on_publish_diagnostics,
           {
+            virtual_text = true,
             underline = false,
           },
           vim.lsp.diagnostic.open_float,
           {
-            border = "rounded"
+            border = "single"
           }
         )
     -- Use LspAttach autocommand to only map the following keys
@@ -64,6 +80,7 @@ return {
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
         vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+        vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, opts)
         vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
         vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
         vim.keymap.set('n', '<space>wl', function()
@@ -71,12 +88,23 @@ return {
         end, opts)
         vim.keymap.set('n', '<space>d', vim.lsp.buf.type_definition, opts)
         vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-        vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+        vim.keymap.set({ 'n', 'v' }, '<space>ca', '<Cmd>CodeActionMenu<Cr>', opts)
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
         vim.keymap.set('n', '<space>f', function()
           vim.lsp.buf.format { async = true }
         end, opts)
       end,
     })
+
+    local cmp_nvim_lsp = require "cmp_nvim_lsp"
+
+    require("lspconfig").clangd.setup {
+      on_attach = on_attach,
+      capabilities = cmp_nvim_lsp.default_capabilities(),
+      cmd = {
+        "clangd",
+        "--offset-encoding=utf-16",
+      },
+    }
   end
 }

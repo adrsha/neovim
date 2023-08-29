@@ -12,14 +12,15 @@ return { -- Highlight, edit, and navigate code
 
     opt.foldmethod = "expr"
     opt.foldexpr = "nvim_treesitter#foldexpr()"
+
     require "treesitter-unit".toggle_highlighting(higroup)
     require 'nvim-treesitter.configs'.setup {
-      ensure_installed = { "lua", "vim", "vimdoc", "query" },
+      ensure_installed = { "lua", "vim", "vimdoc", "query", "cpp", "html" },
       auto_install = true,
       sync_install = true,
       highlight = {
         enable = true,
-        -- disable = { "c", "rust" },
+        disable = { "lua" },
       },
       indent = { enable = true },
       rainbow = {

@@ -9,9 +9,9 @@ return {
           enable = true,
         },
         shortcut = {
-          { desc = ' Update', group = '@property', action = 'Lazy update', key = 'u' },
+          { desc = '⇡ Update', group = '@property', action = 'Lazy update', key = 'u' },
           {
-            icon = ' ',
+            icon = '  ',
             icon_hl = '@variable',
             desc = 'Files',
             group = 'Label',
@@ -19,13 +19,13 @@ return {
             key = 'f',
           },
           {
-            desc = ' Apps',
+            desc = '  Apps',
             group = 'DiagnosticHint',
             action = 'Telescope app',
             key = 'a',
           },
           {
-            desc = ' dotfiles',
+            desc = '  dotfiles',
             group = 'Number',
             action = 'Telescope dotfiles',
             key = 'd',

@@ -18,7 +18,7 @@ return {
       options = {
         theme = custom_catppuccin,
         component_separators = " ",
-        section_separators = { left = "", right = "" },
+        section_separators = { left = "█", right = "█" },
       },
       sections = {
         lualine_a = {},
@@ -26,7 +26,7 @@ return {
         lualine_c = {},
         lualine_x = {},
         lualine_y = { "filetype", "progress" },
-        lualine_z = { { "mode", separator = { left = "", right = "" }, right_padding = 2 } },
+        lualine_z = { { "mode", separator = { left = "█", right = "█" }, right_padding = 2 } },
       },
       inactive_sections = {
         lualine_a = { "filename" },
@@ -40,7 +40,7 @@ return {
         lualine_a = {
           {
             "buffers",
-            separator = { left = "", right = "" },
+            separator = { left = "█", right = "█" },
             right_padding = 4,
             symbols = { alternate_file = "" },
           },

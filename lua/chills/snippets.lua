@@ -23,7 +23,6 @@ ls.add_snippets(nil, {
         "}" }),
 
     }),
-
     snip({
       trig = " int ",
       namr = "int func_name()",
