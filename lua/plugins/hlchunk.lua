@@ -11,58 +11,46 @@ return {
         -- support_filetypes = ft.support_filetypes,
         -- exclude_filetypes = ft.exclude_filetypes,
         chars = {
-          -- horizontal_line = "━",
-          -- vertical_line = "│",
-          -- left_top = "╒",
-          -- left_bottom = "╘",
-          -- right_arrow = "━",
           horizontal_line = "─",
-          vertical_line = "│",
+          vertical_line = "┊",
           left_top = "┌",
           left_bottom = "└",
           right_arrow = "─",
-          --
-          -- horizontal_line = "━",
-          -- vertical_line = "┃",
-          -- left_top = "┏",
-          -- left_bottom = "┗",
-          -- right_arrow = "",
         },
         style = {
-          { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Array")), "fg", "gui") },
-          { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Error")), "fg", "gui") },
+          { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("CursorLineFold")), "fg", "gui") },
+          { fg = "#c21f30" }, -- this fg is used to highlight wrong chunk
         },
-        textobject = " ",
+        textobject = "",
         max_file_size = 1024 * 1024,
-        error_sign = false,
+        error_sign = true,
       },
-
-      indent = {
-        enable = true,
-        use_treesitter = false,
-        chars = {
-          "│",
-        },
-        style = {
-          { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("ColorColumn")), "bg", "gui") }
-        },
-      },
-
       line_num = {
-        enable = true,
+        enable = false,
         use_treesitter = false,
-        style = { vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("WildMenu")), "bg", "gui") },
+        style = {
+          vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Conceal")), "fg", "gui"),
+        },
       },
-
       blank = {
         enable = false,
         chars = {
           "․",
         },
         style = {
-          vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("ColorColumn")), "fg", "gui"),
+          vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui"),
+        },
+      },
+      indent = {
+        enable = true,
+        use_treesitter = false,
+        chars = {
+          "┊",
+        },
+        style = {
+          { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui") }
         },
       },
     })
-  end
+  end,
 }

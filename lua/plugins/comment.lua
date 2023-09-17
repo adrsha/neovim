@@ -1,6 +1,11 @@
 return {
   "numToStr/Comment.nvim",
-  event = 'VimEnter',
+  dependencies = {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+  },
+  event = {
+    'VimEnter',
+  },
   opts = {
     ---Add a space b/w comment and the line
     padding = true,
@@ -21,6 +26,7 @@ return {
       line = "gc",
       ---Block-comment keymap
       block = "gb",
+
     },
     ---LHS of extra mappings
     extra = {

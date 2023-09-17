@@ -1,6 +1,10 @@
 return ({
   "ghillb/cybu.nvim",
-  branch = "main",                                                           -- timely updates
+  branch = "main", -- timely updates
+  keys = {
+    '<Tab>',
+    '<S-Tab>',
+  },
   -- branch = "v1.x", -- won't receive breaking changes
   dependencies = { "nvim-tree/nvim-web-devicons", "nvim-lua/plenary.nvim" }, -- optional for icon support
   config = function()
@@ -16,14 +20,14 @@ return ({
         -- bottomleft, bottomcenter, bottomright
         vertical_offset = 0,   -- vertical offset from anchor in lines
         horizontal_offset = 0, -- vertical offset from anchor in columns
-        max_win_height = 5,    -- height of cybu window in lines
+        max_win_height = 9,    -- height of cybu window in lines
         max_win_width = 0.5,   -- integer for absolute in columns
         -- float for relative to win/editor width
       },
       style = {
         path = "relative", -- absolute, relative, tail (filename only)
         path_abbreviation = "none", -- none, shortened
-        border = "single", -- single, double, rounded, none
+        border = "none", -- single, double, rounded, none
         separator = "  ", -- string used as separator
         prefix = "…", -- string used as prefix for truncated paths
         padding = 1, -- left & right padding in number of spaces

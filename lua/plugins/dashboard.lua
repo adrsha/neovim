@@ -1,38 +1,83 @@
 return {
-  'glepnir/dashboard-nvim',
-  event = 'VimEnter',
+  'nvimdev/dashboard-nvim',
   config = function()
-    require('dashboard').setup {
-      theme = 'hyper',
+    local dashboard = require("dashboard")
+
+    local time = os.date("%H:%M")
+    local v = vim.version()
+    local version = " v" .. v.major .. "." .. v.minor .. "." .. v.patch
+
+    dashboard.setup({
+      theme = "doom",
+      hide = {
+        statusline = true,
+        tabline = true,
+        winbar = true,
+      },
       config = {
-        week_header = {
-          enable = true,
+        header = {
+          "                                                  ",
+          "                                                  ",
+          "                                                  ",
+          "                                                  ",
+          "         ▄▄                             ▄▓▓       ",
+          "          ▀▓▓▓                        ▓▓▓         ",
+          "       ▀▓▄   ▓▓▓                     ▓▓  ▓▓       ",
+          "         ▓▓▓▓▄ ▓                    ▐▓ ▄▓▓        ",
+          "       ▐   ▓▓▓▓     ▄▄▄  ▄▄▄▄        ▀ ▐▓▓▓▌       ",
+          "        ▓▓▄▓▓▓▓▓     ▀▓▓▓▓▓▓▓▀        ▓▓▓▓▌       ",
+          "         ▀▓▓▓▓▓▓▓       ▓▓▓▓         ▓▓▓▓▓  ▄▓    ",
+          "            ▐▓▓▓▓▓▄    ▄▓▓▓▓▄      ▄▓▓▓▓▓▓▓▓▓     ",
+          "           ▀▓▀▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▀▀        ",
+          "              ▄▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▄▄▄       ",
+          "            ▀▓▓▓▀ ▓▓▓ ▓▓▓▓▓▓▓▓▌ ▓▓▓▓▓ ▀▓▓▀        ",
+          "                  ▀    ▓▓▓▓▓▓     ▓▓▓▄            ",
+          "                        ▄ ▓▓▓                     ",
+          "                     ▄▓ ▓▓▄▐▓                     ",
+          "                    ▐▓▓ ▓▓▓                       ",
+          "                    ▐▓  ▓▓▓▓                      ",
+          "                         ▓▓▓                      ",
+          "                            ▀                     ",
         },
-        shortcut = {
-          { desc = '⇡ Update', group = '@property', action = 'Lazy update', key = 'u' },
+        center = {
           {
-            icon = '  ',
-            icon_hl = '@variable',
-            desc = 'Files',
-            group = 'Label',
-            action = 'Telescope find_files',
-            key = 'f',
+            icon = "󰱼  ",
+            icon_hl = "GitSignsAdd",
+            desc = "Resume Last Session",
+            desc_hl = "@method",
+            key = "r",
+            key_hl = "@text.strong",
+            action = "SessionManager load_last_session",
           },
           {
-            desc = '  Apps',
-            group = 'DiagnosticHint',
-            action = 'Telescope app',
-            key = 'a',
+            icon = "󰱼  ",
+            icon_hl = "GitSignsAdd",
+            desc = "Browser",
+            desc_hl = "@method",
+            key = "f",
+            key_hl = "@text.strong",
+            action = "lua MiniFiles.open()",
           },
           {
-            desc = '  dotfiles',
-            group = 'Number',
-            action = 'Telescope dotfiles',
-            key = 'd',
+            icon = "󰗼  ",
+            icon_hl = "GitSignsAdd",
+            desc = "Quit",
+            desc_hl = "@method",
+            key = "q",
+            key_hl = "@text.strong",
+            action = "qa",
           },
         },
-      }
-    }
-  end,
-  dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+        footer = {
+          " " .. time .. " ",
+          version,
+        },
+      },
+    })
+
+    vim.cmd [[
+    highlight link AlphaHeader Error
+    highlight link AlphaHeader Error
+    ]]
+  end
 }

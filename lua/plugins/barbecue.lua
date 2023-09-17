@@ -6,6 +6,7 @@ return {
     "SmiteshP/nvim-navic",
     "nvim-tree/nvim-web-devicons", -- optional dependency
   },
+
   config = function()
     -- triggers CursorHold event faster
     vim.opt.updatetime = 200
@@ -48,15 +49,15 @@ return {
         -- this highlight is used to override other highlights
         -- you can take advantage of its `bg` and set a background throughout your winbar
         -- (e.g. basename will look like this: { fg = "#c0caf5", bold = true })
-        normal = { fg = "#c0caf5", bold = true },
-
+        normal = { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("ModeMsg")), "fg", "gui"), bold = true },
         -- these highlights correspond to symbols table from config
-        ellipsis = { fg = "#737aa2" },
-        separator = { fg = "#737aa2" },
-        modified = { fg = "#737aa2" },
+        --
+        ellipsis = { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("DiagnosticHint")), "fg", "gui") },
+        separator = { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("DiagnosticHint")), "fg", "gui") },
+        modified = { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("DiagnosticHint")), "fg", "gui") },
 
         -- these highlights represent the _text_ of three main parts of barbecue
-        dirname = { fg = "#737aa2" },
+        dirname = { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("DiagnosticHint")), "fg", "gui"), bold = true },
         basename = { bold = true },
         context = {},
 

@@ -28,7 +28,7 @@ return {
       max_width = 70,
       render = "compact",
       stages = "static",
-      timeout = 5000,
+      timeout = 3000,
       top_down = false
     })
   end

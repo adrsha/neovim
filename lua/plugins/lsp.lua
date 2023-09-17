@@ -1,39 +1,172 @@
 return {
-  -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
-  dependencies = {
-
-    -- Automatically install LSPs to stdpath for neovim
-    { 'williamboman/mason.nvim',           config = true },
-    { 'williamboman/mason-lspconfig.nvim', opts = {} },
-    -- Useful status updates for LSP
-    -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+  event = {
+    'BufReadPre',
+    'BufNewFile',
   },
-  config = function()
-    -- Setup language servers.
-    local lspconfig = require('lspconfig')
-    lspconfig.pylsp.setup {}
-    lspconfig.clangd.setup {}
-    lspconfig.lua_ls.setup {}
-    lspconfig.emmet_ls.setup {}
-    lspconfig.bashls.setup {}
-    lspconfig.cssls.setup {}
-    lspconfig.html.setup {}
+  dependencies = {
+    "hrsh7th/cmp-nvim-lsp",
+  },
 
-    -- Global mappings.
-    -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-    vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-    vim.keymap.set('n', '[e', vim.diagnostic.goto_prev)
-    vim.keymap.set('n', ']e', vim.diagnostic.goto_next)
-    vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-    vim.diagnostic.config({
-      virtual_text = false,
-      update_in_insert = true,
-      underline = false,
-      severity_sort = true,
-      float = {
-        focusable = false,
-        border = 'single',
+  config = function()
+    -- import lspconfig plugin
+    local lspconfig = require("lspconfig")
+
+    -- import cmp-nvim-lsp plugin
+    local cmp_nvim_lsp = require("cmp_nvim_lsp")
+
+    local keymap = vim.keymap -- for conciseness
+
+    local opts = { noremap = true, silent = true }
+    local on_attach = function(client, bufnr)
+      opts.buffer = bufnr
+
+      -- set keybinds
+      opts.desc = "Show LSP references"
+      keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+
+      opts.desc = "Go to declaration"
+      keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+
+      opts.desc = "Show LSP definitions"
+      keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+
+      opts.desc = "Show LSP implementations"
+      keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+
+      opts.desc = "Show LSP type definitions"
+      keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+
+      opts.desc = "Smart rename"
+      keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
+
+      opts.desc = "Show buffer diagnostics"
+      keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
+
+      opts.desc = "Show line diagnostics"
+      keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
+
+      opts.desc = "Go to previous diagnostic"
+      keymap.set("n", "{", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
+
+      opts.desc = "Go to next diagnostic"
+      keymap.set("n", "}", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
+
+      opts.desc = "Open LSP signatures"
+      vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+
+      opts.desc = "Show documentation for what is under cursor"
+      keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+
+      opts.desc = "Restart LSP"
+      keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+
+      vim.api.nvim_create_autocmd("CursorHold", {
+        buffer = bufnr,
+        callback = function()
+          local newopts = {
+            focusable = false,
+            close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+            border = 'single',
+            source = 'always',
+            prefix = ' ',
+            -- scope = 'cursor',
+          }
+          vim.diagnostic.open_float(nil, newopts)
+        end
+      })
+    end
+
+    -- used to enable autocompletion (assign to every lsp server config)
+    local capabilities = cmp_nvim_lsp.default_capabilities()
+
+    -- configure html server
+    lspconfig["html"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+      embeddedLanguages = {
+        css = true,
+        javascript = true
+      },
+      provideFormatter = true
+    })
+
+    -- configure css server
+    lspconfig["cssls"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+
+    -- configure python server
+    -- lspconfig["pylsp"].setup({
+    --   capabilities = capabilities,
+    --   on_attach = on_attach,
+    --   settings = {
+    --     pylsp = {
+    --       plugins = {
+    --         pycodestyle = {
+    --           maxLineLength = 200,
+    --         },
+    --         flake8 = {
+    --           maxLineLength = 200,
+    --           -- maxComplexity = 400,
+    --         },
+    --         mccabe = {
+    --           threshold = 400,
+    --         }
+    --       }
+    --     }
+    --   }
+    -- })
+
+    -- configure cpp server
+    lspconfig["pyright"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = {
+        python = {
+          analysis = {
+            autoSearchPaths = true,
+            diagnosticMode = "openFilesOnly",
+            useLibraryCodeForTypes = true
+          }
+        }
+      }
+    })
+    -- configure cpp server
+    lspconfig["clangd"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+
+    -- configure js server
+    lspconfig["denols"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+
+    lspconfig["bashls"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+    -- configure lua server (with special settings)
+    lspconfig["lua_ls"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = { -- custom settings for lua
+        Lua = {
+          -- make the language server recognize "vim" global
+          diagnostics = {
+            globals = { "vim" },
+          },
+          workspace = {
+            -- make language server aware of runtime files
+            library = {
+              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+              [vim.fn.stdpath("config") .. "/lua"] = true,
+            },
+          },
+        },
       },
     })
 
@@ -47,64 +180,41 @@ return {
     vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
       vim.lsp.handlers.signature_help, {
         -- Use a sharp border with `FloatBorder` highlights
-        border = "single"
+        border = "single",
       }
     )
 
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+      vim.lsp.diagnostic.on_publish_diagnostics, {
+        -- Disable signs
+        border = "single",
+        signs = true,
+      }
+    )
+    local signs = { Error = "󰡚 ", Warn = "󰡛 ", Hint = "󰡜 ", Info = "󰡙 " }
+    for type, icon in pairs(signs) do
+      local hl = "DiagnosticSign" .. type
+      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl, icon = '' })
+    end
 
-    vim.lsp.handlers["textDocument/publishDiagnostics"] =
-        vim.lsp.with(
-          vim.lsp.diagnostic.on_publish_diagnostics,
-          {
-            virtual_text = true,
-            underline = false,
-          },
-          vim.lsp.diagnostic.open_float,
-          {
-            border = "single"
-          }
-        )
-    -- Use LspAttach autocommand to only map the following keys
-    -- after the language server attaches to the current buffer
-    vim.api.nvim_create_autocmd('LspAttach', {
-      group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-      callback = function(ev)
-        -- Enable completion triggered by <c-x><c-o>
-        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-        -- Buffer local mappings.
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
-        local opts = { buffer = ev.buf }
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-        vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, opts)
-        vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-        vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-        vim.keymap.set('n', '<space>wl', function()
-          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, opts)
-        vim.keymap.set('n', '<space>d', vim.lsp.buf.type_definition, opts)
-        vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-        vim.keymap.set({ 'n', 'v' }, '<space>ca', '<Cmd>CodeActionMenu<Cr>', opts)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-        vim.keymap.set('n', '<space>f', function()
-          vim.lsp.buf.format { async = true }
-        end, opts)
-      end,
-    })
-
-    local cmp_nvim_lsp = require "cmp_nvim_lsp"
-
-    require("lspconfig").clangd.setup {
-      on_attach = on_attach,
-      capabilities = cmp_nvim_lsp.default_capabilities(),
-      cmd = {
-        "clangd",
-        "--offset-encoding=utf-16",
+    vim.diagnostic.config({
+      virtual_text = false,
+      -- virtual_text = {
+      --   spacing = 2,
+      --   source = "always", -- Or "if_many"
+      --   prefix = ' ',
+      -- },
+      float = {
+        source = 'always',
+        border = 'single'
       },
-    }
-  end
+      -- virtual_lines = { only_current_line = true, highlight_whole_line = false },
+      underline = true,
+      update_in_insert = false,
+      severity_sort = true,
+    })
+    -- You will likely want to reduce updatetime which affects CursorHold
+    -- note: this setting is global and should be set only once
+    -- vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})]]
+  end,
 }

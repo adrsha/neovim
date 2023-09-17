@@ -1,5 +1,8 @@
 return {
   "numToStr/FTerm.nvim",
+  event = {
+    'VimEnter',
+  },
   opts = {
     ---Filetype of the terminal buffer
     ---@type string
@@ -7,7 +10,6 @@ return {
 
     ---Command to run inside the terminal
     ---NOTE: if given string[], it will skip the shell and directly executes the command
-    ---@type fun():(string|string[])|string|string[]
     cmd = os.getenv('SHELL'),
 
     ---Neovim's native window border. See `:h nvim_open_win` for more configuration options.
@@ -20,7 +22,7 @@ return {
 
     ---Highlight group for the terminal. See `:h winhl`
     ---@type string
-    hl = 'Normal',
+    hl = 'NormalFloat',
 
     ---Transparency of the floating window. See `:h winblend`
     ---@type integer
