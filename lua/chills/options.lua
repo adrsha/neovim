@@ -21,14 +21,18 @@ opt.number = true
 opt.numberwidth = 3
 opt.ruler = false
 opt.writebackup = false
-opt.updatetime = 300
+opt.updatetime = 50
 opt.timeoutlen = 500
 opt.clipboard = "unnamedplus"
 opt.hlsearch = true
 opt.ignorecase = true
-opt.scrolloff = 10
-opt.sidescrolloff = 30
-opt.foldenable = false
+opt.scrolloff = 0
+opt.sidescrolloff = 0
+opt.foldenable = true
+opt.foldcolumn = '1'
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+opt.foldmethod = "indent"
 opt.mouse = "a"
 opt.cursorline = true
 opt.tabstop = 2
@@ -37,7 +41,11 @@ opt.shiftwidth = 0
 opt.autoindent = false
 opt.wrap = false
 opt.expandtab = true
-opt.fillchars:append('eob: ')
+opt.fillchars:append('eob:⠀')
+opt.fillchars:append('fold:⠀')
+opt.fillchars:append('foldopen:')
+opt.fillchars:append('foldclose:')
+opt.fillchars:append('foldsep:󰇙')
 opt.listchars:append "space: "
 opt.laststatus = 0                  -- Global Status
 diagnostic.config { signs = false } -- Removing diagnostic column
@@ -110,8 +118,17 @@ vim.opt.iskeyword:append("-")                   -- hyphenated words recognized b
 vim.opt.formatoptions:remove({ "c", "r", "o" }) -- don't insert the current comment leader automatically for auto-wrapping comments using 'textwidth', hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode.
 vim.opt.spelllang:append "cjk"                  -- disable spellchecking for asian characters (VIM algorithm does not support it)
 vim.opt.whichwrap:append "<,>,[,],h,l"
+
+vim.o.guifont = "Iosevka Nerd Font:h15" -- text below applies for VimScript
+
+vim.g.neovide_scale_factor = 1.0
+vim.g.neovide_padding_top = 10
+vim.g.neovide_padding_bottom = 0
+vim.g.neovide_padding_right = 0
+vim.g.neovide_padding_left = 10
+
 -- to remove the ~ in eofs
 -- there is an invisible char there
-vim.cmd([[
-set fillchars+=eob:⠀
-]])
+-- vim.cmd([[
+-- set fillchars+=eob:⠀
+-- ]])

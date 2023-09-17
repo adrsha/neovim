@@ -4,5 +4,8 @@
         "cfg",
         "higroup",
         "on_attach"
+    ],
+    "diagnostics.disable": [
+        "undefined-global"
     ]
 }
