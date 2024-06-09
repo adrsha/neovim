@@ -1,5 +1,9 @@
 return {
   'nvim-telescope/telescope.nvim',
+  dependencies = {
+    'nvim-telescope/telescope-ui-select.nvim',
+    'nvim-lua/plenary.nvim',
+  },
   config = function()
     local actions = require "telescope.actions"
     require('telescope').setup {
@@ -26,7 +30,7 @@ return {
         prompt_prefix = "   ",
         selection_caret = " ",
         entry_prefix = "  ",
-        initial_mode = "insert",
+        initial_mode = "normal",
         selection_strategy = "reset",
         layout_strategy = "horizontal",
 
@@ -45,6 +49,7 @@ return {
             ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
             ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
 
+            ["<C-l>"] = actions.select_default,
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
             ["<C-j>"] = actions.move_selection_next,     -- move to next result
             ["j"] = actions.move_selection_next,
@@ -77,6 +82,7 @@ return {
             ["<Up>"] = actions.move_selection_previous,
 
             ["<CR>"] = actions.select_default,
+            ["<C-l>"] = actions.select_default,
             ["<C-x>"] = actions.select_horizontal,
             ["<C-v>"] = actions.select_vertical,
             ["<C-t>"] = actions.select_tab,
@@ -93,7 +99,6 @@ return {
             ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
             ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
             ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-            ["<C-l>"] = actions.complete_tag,
             ["<C-/>"] = actions.which_key,
             ["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
             ["<C-w>"] = { "<c-s-w>", type = "command" },
@@ -111,6 +116,26 @@ return {
       },
       extensions = {
 
+        ["ui-select"] = {
+          require("telescope.themes").get_dropdown {
+            -- even more opts
+          }
+
+          -- pseudo code / specification for writing custom displays, like the one
+          -- for "codeactions"
+          -- specific_opts = {
+          --   [kind] = {
+          --     make_indexed = function(items) -> indexed_items, width,
+          --     make_displayer = function(widths) -> displayer
+          --     make_display = function(displayer) -> function(e)
+          --     make_ordinal = function(e) -> string
+          --   },
+          --   -- for example to disable the custom builtin "codeactions" display
+          --      do the following
+          --   codeactions = false,
+          -- }
+        },
+
         file_browser = {
           theme = "ivy",
           -- disables netrw and use telescope-file-browser in its place
@@ -127,5 +152,6 @@ return {
         },
       },
     }
+    require("telescope").load_extension("ui-select")
   end
 }

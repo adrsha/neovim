@@ -10,8 +10,6 @@
 -- Author: Adarsh Acharya
 -- Link the neovim files and folders
 
-
 require("chills.keymaps")
-require("chills.autocommands")
 require("chills.options")
 require("chills.lazy")

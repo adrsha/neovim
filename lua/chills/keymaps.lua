@@ -9,6 +9,8 @@ keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>==gi")
 keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>==gi")
 keymap.set("c", "<C-w>", ":w !sudo tee % > /dev/null<CR>")
 
+keymap.set("n", "H", "za")
+keymap.set("n", "L", "za")
 -- Move current line / block with Alt-j/k ala vscode.
 
 -- keymap.set("n", "<C-h>", "<C-w>h")
@@ -59,22 +61,16 @@ keymap.set("i", "<C-s>", "<Esc>:%s/")
 
 -- Buffer
 keymap.set("n", "<Tab>", "<CMD>bnext<CR>")
+keymap.set("n", "<leader>bn", "<CMD>bnext<CR>")
 keymap.set("n", "<S-Tab>", "<CMD>bprev<CR>")
+keymap.set("n", "<leader>bp", "<CMD>bprev<CR>")
 
 -- BetterEscape
 -- In /setups/betterescape.lua
 
 -- Surround.nvim
 -- Using the defaults
-
---Telescope
-keymap.set("n", "<leader>fr", "<CMD>Telescope oldfiles<CR>")
-keymap.set("n", "<leader>lg", "<CMD>Telescope live_grep<CR>")
-keymap.set("n", "<leader>ss", "<CMD>Telescope spell_suggest<CR>")
-keymap.set("n", "<leader>bb", "<CMD>Telescope builtin<CR>")
-keymap.set("n", "<leader>ff", "<CMD>Telescope fd<CR>")
--- Insitu Telescope shortcuts are in Telescope.lua
-
+--
 --FTERM
 opts.desc = "Fterm"
 keymap.set('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
@@ -88,28 +84,26 @@ keymap.set("i", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
 keymap.set("s", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
 -- keymap.set("i", "<c-f>", "i<Esc>==<S-a><BS>", opts)
 -- keymap.set("i", "<c-f>", "<Esc>ddkA<CR>", opts)
+--
+--Telescope
+keymap.set("n", "<leader>fr", "<CMD>Telescope oldfiles<CR>")
+keymap.set("n", "<leader>lg", "<CMD>Telescope live_grep<CR>")
+keymap.set("n", "<leader>ss", "<CMD>Telescope spell_suggest<CR>")
+keymap.set("n", "<leader>bb", "<CMD>Telescope builtin<CR>")
+keymap.set("n", "<leader>ff", "<CMD>lua MiniFiles.open()<CR>")
+-- Insitu Telescope shortcuts are in Telescope.lua
+--
+--
+-- vnoremap <M-k> <Cmd>lua require("dapui").eval()<CR>
+keymap.set("n", "<leader>dk", "<CMD>lua require('dapui').eval()<CR>")
+keymap.set("n", "<leader>db", "<CMD>lua require('dapui').toggle()<CR>")
 
---Flutter
-opts.desc = "Flutter Tools"
-keymap.set("n", "<leader>flf", "<cmd>FlutterRun<CR>", opts)
-keymap.set("n", "<leader>flr", "<cmd>FlutterReload<CR>", opts)
-keymap.set("n", "<leader>flR", "<cmd>FlutterRestart<CR>", opts)
+--enable disable treesitter
+keymap.set("n", "<leader>tt", "<CMD>TSBufToggle highlight<CR>")
+keymap.set("n", "<leader>ti", "<CMD>TSBufToggle incremental_selection<CR>")
 
--- Color Picker
-opts.desc = "Color Picker"
-keymap.set("n", "<leader>cc", "<cmd>CccPick<CR>", opts)
-keymap.set("n", "<leader>cl", "<cmd>CccConvert<CR>", opts)
-
--- Code window
-opts.desc = "Minimap"
-keymap.set("n", "<leader>mm", "<cmd>lua require'codewindow'.toggle_minimap()<CR>", opts)
-
--- Sessions
-opts.desc = "Load Sessions"
-keymap.set("n", "<leader>sl", "<cmd>SessionManager load_session<CR>", opts)
-opts.desc = "Save Sessions"
-keymap.set("n", "<leader>sn", "<cmd>SessionManager save_current_session<CR>", opts)
-
--- Neotree
-opts.desc = "Toggle Neotree"
-keymap.set("n", "<leader>e", "<cmd>lua MiniFiles.open()<CR>", opts)
+-- Treesitter Unit
+vim.api.nvim_set_keymap('x', 'iu', ':lua require"treesitter-unit".select()<CR>', { noremap = true })
+vim.api.nvim_set_keymap('x', 'au', ':lua require"treesitter-unit".select(true)<CR>', { noremap = true })
+vim.api.nvim_set_keymap('o', 'iu', ':<c-u>lua require"treesitter-unit".select()<CR>', { noremap = true })
+vim.api.nvim_set_keymap('o', 'au', ':<c-u>lua require"treesitter-unit".select(true)<CR>', { noremap = true })

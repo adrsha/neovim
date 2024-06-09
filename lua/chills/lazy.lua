@@ -13,4 +13,13 @@ end
 vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
 
-return require("lazy").setup('plugins')
+return require("lazy").setup('plugins', {
+  checker = {
+    -- automatically check for plugin updates
+    enabled = false,
+    concurrency = nil, ---@type number? set to 1 to check for updates very slowly
+    notify = true,        -- get a notification when new updates are found
+    frequency = 3600,     -- check for updates every hour
+    check_pinned = false, -- check for pinned packages that can't be updated
+  },
+})

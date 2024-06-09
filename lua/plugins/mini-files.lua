@@ -35,7 +35,7 @@ return {
         reset       = '<BS>',
         reveal_cwd  = '@',
         show_help   = 'g?',
-        synchronize = '=',
+        synchronize = '<leader>',
         trim_left   = '<',
         trim_right  = '>',
       },
@@ -62,5 +62,5 @@ return {
         width_preview = 65,
       },
     })
-  end,
+  end
 }
