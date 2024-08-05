@@ -3,6 +3,7 @@ return {
   dependencies = {
     'nvim-telescope/telescope-ui-select.nvim',
     'nvim-lua/plenary.nvim',
+    'SalOrak/whaler.nvim',
   },
   config = function()
     local actions = require "telescope.actions"
@@ -30,7 +31,7 @@ return {
         prompt_prefix = "   ",
         selection_caret = " ",
         entry_prefix = "  ",
-        initial_mode = "normal",
+        initial_mode = "insert",
         selection_strategy = "reset",
         layout_strategy = "horizontal",
 
@@ -93,7 +94,7 @@ return {
             ["<PageUp>"] = actions.results_scrolling_up,
             ["<PageDown>"] = actions.results_scrolling_down,
             ["<M-f>"] = actions.results_scrolling_left,
-            ["<M-k>"] = actions.results_scrolling_right,
+            ["<M-b>"] = actions.results_scrolling_right,
 
             ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
             ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
@@ -115,6 +116,28 @@ return {
         -- builtin picker
       },
       extensions = {
+        whaler = {
+          directories = { "/home/chilly/Codes/" },            -- Path directories to search. By default the list is empty.
+          oneoff_directories = { "/home/user/.config/nvim" }, -- Path directories to append directly to list of projects. By default is empty.
+          auto_file_explorer = true,                          -- Whether to automatically open file explorer. By default is `true`
+          auto_cwd = true,                                    -- Whether to automatically change current working directory. By default is `true`
+          file_explorer_config = {
+            plugin_name = "telescope",
+            command = "Telescope find_files",
+            prefix_dir = " cwd=",
+          },
+          theme = {                -- Telescope theme default Whaler options.
+            results_title = false, -- Either `false` or a string.
+            layout_strategy = "center",
+            previewer = false,
+            layout_config = {
+              height = 0.3,
+              width = 0.4
+            },
+            sorting_strategy = "ascending",
+            border = true,
+          }
+        },
 
         ["ui-select"] = {
           require("telescope.themes").get_dropdown {
@@ -135,23 +158,10 @@ return {
           --   codeactions = false,
           -- }
         },
-
-        file_browser = {
-          theme = "ivy",
-          -- disables netrw and use telescope-file-browser in its place
-          initial_mode = "normal",
-          hijack_netrw = true,
-          mappings = {
-            ["i"] = {
-              -- your custom insert mode mappings
-            },
-            ["n"] = {
-              -- your custom normal mode mappings
-            },
-          },
-        },
       },
     }
     require("telescope").load_extension("ui-select")
+    local telescope = require('telescope')
+    vim.keymap.set("n", "<leader>ww", telescope.extensions.whaler.whaler)
   end
 }

@@ -33,6 +33,7 @@ keymap.set("x", "<A-k>", ":m '<-2<CR>gv-gv")
 
 -- Find all instances of the word
 keymap.set("n", "<C-n>", "*")
+keymap.set("v", "<C-n>", "*")
 -- Find next bracket
 keymap.set("n", "<leader>n", "%")
 
@@ -86,11 +87,17 @@ keymap.set("s", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
 -- keymap.set("i", "<c-f>", "<Esc>ddkA<CR>", opts)
 --
 --Telescope
+keymap.set("n", "<leader><leader>", "<CMD>Telescope<CR>")
 keymap.set("n", "<leader>fr", "<CMD>Telescope oldfiles<CR>")
+keymap.set("n", "<leader>fd", "<CMD>Telescope find_files<CR>")
 keymap.set("n", "<leader>lg", "<CMD>Telescope live_grep<CR>")
 keymap.set("n", "<leader>ss", "<CMD>Telescope spell_suggest<CR>")
-keymap.set("n", "<leader>bb", "<CMD>Telescope builtin<CR>")
+keymap.set("n", "<leader>r", "<CMD>Telescope lsp_references<CR>")
+keymap.set("n", "<leader>td", "<CMD>Telescope lsp_definitions<CR>")
 keymap.set("n", "<leader>ff", "<CMD>lua MiniFiles.open()<CR>")
+
+--JABS
+keymap.set("n", "<leader>bb", "<CMD>JABSOpen<CR>")
 -- Insitu Telescope shortcuts are in Telescope.lua
 --
 --

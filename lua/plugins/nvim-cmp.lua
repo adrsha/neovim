@@ -16,31 +16,31 @@ return {
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     local kind_icons = {
-      Text = "󰊄",
-      Method = "󰆦",
-      Function = "󰊕",
-      Constructor = "",
-      Field = "󰇽",
-      Variable = "󰂡",
-      Class = "󰠱",
-      Interface = "",
-      Module = "󱊈",
-      Property = "󰜢",
-      Unit = "",
-      Value = "󰎠",
-      Enum = "",
-      Keyword = "󰌋",
-      Snippet = "󰅩",
-      Color = "󰏘",
-      File = "󰈙",
-      Reference = "",
-      Folder = "",
-      EnumMember = "",
-      Constant = "󰏿",
-      Struct = "",
-      Event = "",
-      Operator = "󰆕",
-      TypeParameter = "󰅲",
+      Text = " 󰊄 ",
+      Method = " 󰆦 ",
+      Function = " 󰊕 ",
+      Constructor = "  ",
+      Field = " 󰇽 ",
+      Variable = " 󰂡 ",
+      Class = " 󰠱 ",
+      Interface = "  ",
+      Module = " 󱊈 ",
+      Property = " 󰜢 ",
+      Unit = "  ",
+      Value = " 󰎠 ",
+      Enum = "  ",
+      Keyword = " 󰌋 ",
+      Snippet = " 󰅩 ",
+      Color = " 󰏘 ",
+      File = " 󰈙 ",
+      Reference = "  ",
+      Folder = "  ",
+      EnumMember = "  ",
+      Constant = " 󰏿 ",
+      Struct = "  ",
+      Event = "  ",
+      Operator = " 󰆕 ",
+      TypeParameter = " 󰅲 ",
     }
     --
     -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
@@ -62,6 +62,7 @@ return {
       }
     })
     cmp.setup({
+
       completion = {
         completeopt = "menu,menuone,preview,noselect",
         -- completeopt = "menu,menuone,preview",
@@ -72,21 +73,18 @@ return {
         end,
       },
       mapping = cmp.mapping.preset.insert({
-        ["<C-k>"] = cmp.mapping.select_prev_item(),   -- previous suggestion
-        ["<C-j>"] = cmp.mapping.select_next_item(),   -- next suggestion
-        ["<S-Tab>"] = cmp.mapping.select_prev_item(), -- previous suggestion
-        ["<Tab>"] = cmp.mapping.select_next_item(),   -- next suggestion
+        ["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
+        ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
-        ["<C-h>"] = cmp.mapping.abort(),        -- close completion window
-        ["<C-e>"] = cmp.mapping.close(),        -- close completion window
+        ["<C-h>"] = cmp.mapping.close(),        -- close completion window
         ["<C-l>"] = cmp.mapping({
           i = function(fallback)
             if cmp.visible() and cmp.get_active_entry() then
               cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
             else
-              fallback()
+              cmp.mapping.confirm({ select = true })
             end
           end,
           s = cmp.mapping.confirm({ select = true }),
@@ -108,18 +106,18 @@ return {
 
       -- configure lspkind for vs-code like pictograms in completion menu
       formatting = {
-        fields = { "menu", "abbr", "kind" },
+        fields = { "kind", "abbr", "menu" },
         format = function(entry, vim_item)
           -- Kind icons
           vim_item.kind = string.format('%s', kind_icons[vim_item.kind]) -- This concatonates the icons with the name of the item kind
           -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- For more detailed cmp
           -- Source
           vim_item.menu = ({
-            rg = " 󱝴 ",
-            nvim_lsp = " 󰗊 ",
-            luasnip = " 󰬓 ",
+            rg = "  ",
+            nvim_lsp = "  ",
+            luasnip = "  ",
             async_path = "  ",
-            calc = " 󰃬 ",
+            calc = "  ",
             -- buffer = "<Buffer>",
             -- nvim_lsp = "<LSP>",
             -- luasnip = "<LuaSnip>",
@@ -127,24 +125,24 @@ return {
             -- latex_symbols = "<LaTeX>",
           })[entry.source.name]
           if entry.source.name == "buffer-lines" then
-            vim_item.menu = ' 󱉥 '
+            vim_item.menu = ' 󱉥 ' -- 
           end
           return vim_item
         end
       },
       window = {
         completion = {
-          winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+          winhighlight = "Normal:TelescopePromptNormal,FloatBorder:TelescopeBorder,Search:TelescopePromptNormal",
           side_padding = 0,
-          -- scrollbar = false,
+          scrollbar = false,
           max_width = 30,
           max_height = 100,
           border = 'rounded',
         },
         documentation = {
-          winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+          winhighlight = "Normal:TelescopePromptNormal,FloatBorder:TelescopeBorder,Search:TelescopePromptNormal",
           side_padding = 0,
-          -- scrollbar = false,
+          scrollbar = false,
           max_width = 30,
           max_height = 100,
           border = 'rounded',

@@ -5,6 +5,9 @@ return {
     'hrsh7th/nvim-cmp',
     'hrsh7th/cmp-nvim-lsp'
   },
+  opts = {
+    inlay_hints = { enabled = true },
+  },
   config = function()
     -- Setup language servers.
     local lspconfig = require('lspconfig')
@@ -26,13 +29,10 @@ return {
       single_file_support = true,
     }
 
-
-
     lspconfig.clangd.setup {
       capabilities = capabilities,
       -- on_attach = on_attach
     }
-
 
 
     lspconfig.lua_ls.setup {
@@ -40,6 +40,44 @@ return {
       -- on_attach = on_attach
     }
 
+    lspconfig.rust_analyzer.setup({
+      -- on_attach = on_attach,
+      capabilities = capabilities,
+
+      diagnostics = {
+        enable = true,
+      }
+    })
+
+    lspconfig.tsserver.setup({
+      -- on_attach = on_attach,
+      capabilities = capabilities,
+    })
+
+    lspconfig.html.setup({
+      -- on_attach = on_attach,
+      capabilities = capabilities,
+      {
+        configurationSection = { "html", "css", "javascript" },
+        embeddedLanguages = {
+          css = true,
+          javascript = true
+        },
+        provideFormatter = true
+      }
+    })
+    lspconfig.cssls.setup({
+      -- on_attach = on_attach,
+      capabilities = capabilities,
+      settings = {
+        css = {
+          validate = true,
+        },
+        scss = {
+          validate = true,
+        },
+      },
+    })
 
     lspconfig.emmet_ls.setup({
       -- on_attach = on_attach,

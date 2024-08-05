@@ -29,7 +29,7 @@ opt.ignorecase = true
 opt.scrolloff = 0
 opt.sidescrolloff = 0
 opt.mouse = "a"
-opt.cursorline = true
+opt.cursorline = false
 opt.tabstop = 2
 opt.softtabstop = 2
 opt.shiftwidth = 0
@@ -114,14 +114,29 @@ vim.opt.formatoptions:remove({ "c", "r", "o" }) -- don't insert the current comm
 vim.opt.spelllang:append "cjk"                  -- disable spellchecking for asian characters (VIM algorithm does not support it)
 vim.opt.whichwrap:append "<,>,[,],h,l"
 
-vim.o.guifont = "Iosevka Nerd Font:h15" -- text below applies for VimScript
+vim.o.guifont = "JetBrainsMono NFM SemiBold:h13" -- text below applies for VimScript
 
 vim.g.neovide_scale_factor = 1.0
 vim.g.neovide_padding_top = 10
 vim.g.neovide_padding_bottom = 0
 vim.g.neovide_padding_right = 0
 vim.g.neovide_padding_left = 10
+vim.g.neovide_position_animation_length = 0.13
+vim.g.neovide_cursor_animation_length = 0.01
+vim.g.neovide_scroll_animation_far_lines = 1
+vim.g.neovide_scroll_animation_length = 0.01
+vim.g.neovide_cursor_trail_size = 0.8
+vim.g.neovide_cursor_smooth_blink = false
 
+vim.g.neovide_background_color = "#1E1E2E"
+vim.g.neovide_refresh_rate = 60
+vim.g.neovide_confirm_quit = false
+
+vim.g.neovide_hide_mouse_when_typing = true
+vim.g.neovide_floating_shadow = true
+vim.g.neovide_floating_z_height = 10
+vim.g.neovide_light_angle_degrees = 45
+vim.g.neovide_light_radius = 5
 -- to remove the ~ in eofs
 -- there is an invisible char there
 -- vim.cmd([[

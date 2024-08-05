@@ -12,7 +12,7 @@ return {
         light = "latte",
         dark = "mocha",
       },
-      transparent_background = true,
+      transparent_background = false,
       show_end_of_buffer = false, -- show the '~' characters after the end of buffers
       term_colors = true,
       dim_inactive = {
@@ -38,34 +38,40 @@ return {
       },
       color_overrides = {
         mocha = {
-          rosewater = "#e8dee9",
-          flamingo = "#81a1c1",
-          mauve = "#b48ead",
-          pink = "#F5C2E7",
-          red = "#bf616a",
-          maroon = "#E8A2AF",
-          peach = "#d08770",
-          yellow = "#ebcb8b",
-          green = "#a3be8c",
-          blue = "#88c0d0",
-          sky = "#5e81ac",
-          teal = "#B5E8E0",
-          lavender = "#81a1c1",
+          subtext0 = "#3E3E5F",
+          surface0 = "#14141f",
+          base = "#000000"
 
-          text = "#eceff4",
-          subtext1 = "#e5e9f0",
-          subtext0 = "#e5e9f0",
-          overlay2 = "#d8dee9",
-          overlay1 = "#d8dee9",
-          overlay0 = "#4c566a",
-          surface2 = "#434c5e",
-          surface1 = "#3b4252",
-          surface0 = "#2e3440",
-
-          base = "#242933",
-          mantle = "#242933",
-          crust = "#2e3440",
-        },
+        }
+        -- mocha = {
+        --   rosewater = "#e8dee9",
+        --   flamingo = "#81a1c1",
+        --   mauve = "#b48ead",
+        --   pink = "#F5C2E7",
+        --   red = "#bf616a",
+        --   maroon = "#E8A2AF",
+        --   peach = "#d08770",
+        --   yellow = "#ebcb8b",
+        --   green = "#a3be8c",
+        --   blue = "#88c0d0",
+        --   sky = "#5e81ac",
+        --   teal = "#B5E8E0",
+        --   lavender = "#81a1c1",
+        --
+        --   text = "#eceff4",
+        --   subtext1 = "#e5e9f0",
+        --   subtext0 = "#e5e9f0",
+        --   overlay2 = "#d8dee9",
+        --   overlay1 = "#d8dee9",
+        --   overlay0 = "#4c566a",
+        --   surface2 = "#434c5e",
+        --   surface1 = "#3b4252",
+        --   surface0 = "#2e3440",
+        --
+        --   base = "#242933",
+        --   mantle = "#242933",
+        --   crust = "#2e3440",
+        -- },
       },
       custom_highlights = {},
       integrations = {
@@ -84,6 +90,7 @@ return {
       TelescopeMatching = { fg = colors.flamingo },
       TelescopeSelection = { fg = colors.text, bg = colors.surface0, bold = true },
 
+      WinSeparator = { bg = colors.base, fg = colors.base },
       TelescopePromptPrefix = { bg = colors.mantle },
       TelescopePromptNormal = { bg = colors.mantle },
       TelescopeResultsNormal = { bg = colors.mantle },
@@ -91,6 +98,7 @@ return {
       TelescopePromptBorder = { bg = colors.mantle, fg = colors.mantle },
       TelescopeResultsBorder = { bg = colors.mantle, fg = colors.mantle },
       TelescopePreviewBorder = { bg = colors.mantle, fg = colors.mantle },
+      FloatTitle = { bg = colors.mauve, fg = colors.mantle },
       TelescopePromptTitle = { bg = colors.pink, fg = colors.mantle },
       TelescopeResultsTitle = { fg = colors.mantle },
       TelescopePreviewTitle = { bg = colors.green, fg = colors.mantle },
@@ -99,15 +107,19 @@ return {
       BufferTabpageFill = { bg = colors.mantle, fg = colors.text },
       TabLineFill = { bg = colors.mantle, fg = colors.text },
       TabLine = { bg = colors.mantle, fg = colors.text },
-      DiagnosticHint = { fg = colors.green },
-      DiagnosticWarn = { fg = colors.yellow },
-      DiagnosticError = { fg = colors.red },
+      DiagnosticHint = { fg = colors.green, bg = '#262d25' },
+      DiagnosticWarn = { fg = colors.yellow, bg = '#453e29' },
+      DiagnosticError = { fg = colors.red, bg = '#42232c' },
       DiagnosticInfo = { fg = colors.blue },
-      DiagnosticLineNrHint = { fg = colors.green },
-      DiagnosticLineNrWarn = { fg = colors.yellow },
-      DiagnosticLineNrError = { fg = colors.red },
+      DiagnosticLineNrHint = { fg = colors.green, bg = '#262d25' },
+      DiagnosticLineNrWarn = { fg = colors.yellow, bg = '#453e29' },
+      DiagnosticLineNrError = { fg = colors.red, bg = '#42232c' },
       DiagnosticLineNrInfo = { fg = colors.blue },
-      -- MiniIndentscopeSymbol = { fg = colors.overlay0 },
+      DiagnosticUnderlineHint = { fg = colors.green, bg = '#262d25' },
+      DiagnosticUnderlineWarn = { fg = colors.yellow, bg = '#453e29' },
+      DiagnosticUnderlineError = { fg = colors.red, bg = '#42232c' },
+      DiagnosticUnderlineInfo = { fg = colors.blue },
+      LineNr = { fg = colors.overlay0 },
     }
 
     for hl, col in pairs(TelescopeColor) do
@@ -147,13 +159,6 @@ return {
     highlight! link CmpItemKindProperty CmpItemKindKeyword
     highlight! link CmpItemKindUnit CmpItemKindKeyword
 
-    highlight! CmpItemMenu guibg=NONE guifg=#63718B
-
-    augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost packer.lua source <afile> | PackerSync
-    augroup end
-
     highlight NotifyERRORBorder guifg=#F28FAD
     highlight NotifyWARNBorder guifg=#FAE3B0
     highlight NotifyINFOBorder guifg=#ABE9B3
@@ -175,7 +180,6 @@ return {
     highlight link NotifyINFOBody Normal
     highlight link NotifyDEBUGBody Normal
     highlight link NotifyTRACEBody Normal
-
 
     highlight TSRainbowOrange  guifg=#F8BD96 ctermfg=White
     highlight TSRainbowRed  guifg=#F28FAD ctermfg=White
