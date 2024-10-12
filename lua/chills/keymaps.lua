@@ -1,6 +1,7 @@
 local opts = { noremap = true, silent = true }
 local keymap = vim.keymap -- for conciseness
 vim.g.mapleader = " "
+vim.g.maplocalleader = ";"
 
 
 -- NVIM MODIFICATIONS
@@ -34,8 +35,6 @@ keymap.set("x", "<A-k>", ":m '<-2<CR>gv-gv")
 -- Find all instances of the word
 keymap.set("n", "<C-n>", "*")
 keymap.set("v", "<C-n>", "*")
--- Find next bracket
-keymap.set("n", "<leader>n", "%")
 
 -- Tabs dont unselect the selection
 keymap.set("v", "<A-h>", "<gv")
@@ -92,25 +91,29 @@ keymap.set("n", "<leader>fr", "<CMD>Telescope oldfiles<CR>")
 keymap.set("n", "<leader>fd", "<CMD>Telescope find_files<CR>")
 keymap.set("n", "<leader>lg", "<CMD>Telescope live_grep<CR>")
 keymap.set("n", "<leader>ss", "<CMD>Telescope spell_suggest<CR>")
-keymap.set("n", "<leader>r", "<CMD>Telescope lsp_references<CR>")
-keymap.set("n", "<leader>td", "<CMD>Telescope lsp_definitions<CR>")
 keymap.set("n", "<leader>ff", "<CMD>lua MiniFiles.open()<CR>")
 
---JABS
-keymap.set("n", "<leader>bb", "<CMD>JABSOpen<CR>")
--- Insitu Telescope shortcuts are in Telescope.lua
 --
---
--- vnoremap <M-k> <Cmd>lua require("dapui").eval()<CR>
-keymap.set("n", "<leader>dk", "<CMD>lua require('dapui').eval()<CR>")
-keymap.set("n", "<leader>db", "<CMD>lua require('dapui').toggle()<CR>")
-
---enable disable treesitter
-keymap.set("n", "<leader>tt", "<CMD>TSBufToggle highlight<CR>")
-keymap.set("n", "<leader>ti", "<CMD>TSBufToggle incremental_selection<CR>")
-
 -- Treesitter Unit
 vim.api.nvim_set_keymap('x', 'iu', ':lua require"treesitter-unit".select()<CR>', { noremap = true })
 vim.api.nvim_set_keymap('x', 'au', ':lua require"treesitter-unit".select(true)<CR>', { noremap = true })
 vim.api.nvim_set_keymap('o', 'iu', ':<c-u>lua require"treesitter-unit".select()<CR>', { noremap = true })
 vim.api.nvim_set_keymap('o', 'au', ':<c-u>lua require"treesitter-unit".select(true)<CR>', { noremap = true })
+
+-- Illuminate
+vim.api.nvim_set_keymap('n', '<A-n>', ":<c-u>lua require('illuminate').goto_next_reference(wrap)<CR>", { noremap = true })
+vim.api.nvim_set_keymap('n', '<A-s-n>', ":<c-u>lua require('illuminate').goto_next_reference(wrap)<CR>",
+  { noremap = true })
+
+keymap.set("n", "<leader>tt", "<CMD>TSBufToggle highlight<CR>")
+--
+-- LSP
+vim.keymap.set('n', 'gd', '<CMD>Telescope lsp_definitions<CR>')
+vim.keymap.set('n', 'gr', '<CMD>Telescope lsp_references<CR>')
+vim.keymap.set('n', 'gt', '<CMD>Telescope lsp_type_definitions<CR>')
+vim.keymap.set('n', 'gi', '<CMD>Telescope lsp_implementations<CR>')
+vim.keymap.set('n', 'gs', '<CMD>Telescope lsp_document_symbols<CR>')
+
+vim.keymap.set("n", "<leader>ca", function()
+  require("tiny-code-action").code_action()
+end, { noremap = true, silent = true })

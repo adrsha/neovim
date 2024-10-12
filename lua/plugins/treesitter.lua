@@ -7,23 +7,23 @@ return {
   'nvim-treesitter/nvim-treesitter',
 
   dependencies = {
-    -- {
-    --   "nvim-treesitter/nvim-treesitter-context",
-    --   event = "VeryLazy",
-    --   dependency = {
-    --     'nvim-treesitter/nvim-treesitter',
-    --   }
-    -- },
     {
-      "David-Kunz/treesitter-unit",
+      "nvim-treesitter/nvim-treesitter-context",
       event = "VeryLazy",
       dependency = {
         'nvim-treesitter/nvim-treesitter',
       }
     },
     {
+      "David-Kunz/treesitter-unit",
+      -- event = "Verylazy",
+      dependency = {
+        'nvim-treesitter/nvim-treesitter',
+      }
+    },
+    {
       'https://gitlab.com/HiPhish/rainbow-delimiters.nvim',
-      event = "VeryLazy",
+      -- event = "VeryLazy",
       dependency = {
         'nvim-treesitter/nvim-treesitter',
       }
@@ -47,7 +47,6 @@ return {
     -- This module contains a number of default definitions
     local rainbow_delimiters = require 'rainbow-delimiters'
 
-    ---@type rainbow_delimiters.config
     vim.g.rainbow_delimiters = {
       strategy = {
         [''] = rainbow_delimiters.strategy['global'],
@@ -69,24 +68,26 @@ return {
       },
       blacklist = { 'html' },
     }
-    -- require 'treesitter-context'.setup {
-    --   enable = true,           -- Enable this plugin (Can be enabled/disabled later via commands)
-    --   max_lines = 0,           -- How many lines the window should span. Values <= 0 mean no limit.
-    --   min_window_height = 0,   -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-    --   line_numbers = false,
-    --   multiline_threshold = 2, -- Maximum number of lines to show for a single context
-    --   trim_scope = 'outer',    -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-    --   mode = 'topline',        -- Line used to calculate context. Choices: 'cursor', 'topline'
-    --   -- Separator between context and content. Should be a single character string, like '-'.
-    --   -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-    --   separator = " ",
-    --   zindex = 20,     -- The Z-index of the context window
-    --   on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
-    -- }
+
+    require 'treesitter-context'.setup {
+      enable = true,            -- Enable this plugin (Can be enabled/disabled later via commands)
+      max_lines = 0,            -- How many lines the window should span. Values <= 0 mean no limit.
+      min_window_height = 0,    -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+      line_numbers = true,
+      multiline_threshold = 20, -- Maximum number of lines to show for a single context
+      trim_scope = 'outer',     -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+      mode = 'topline',         -- Line used to calculate context. Choices: 'cursor', 'topline'
+      -- Separator between context and content. Should be a single character string, like '-'.
+      -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+      separator = "━",
+      zindex = 21,     -- The Z-index of the context window
+      on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+    }
+
     require("nvim-treesitter.configs").setup {
 
       ensure_installed = { "c", "javascript" },
-      auto_install = false,
+      auto_install = true,
       sync_install = true,
       ignore_install = { "lua" },
 
@@ -101,25 +102,11 @@ return {
         end,
       },
 
-
       -- REFACTOR START
       refactor = {
-        highlight_definitions = {
-          enable = true,
-          clear_on_cursor_move = true,
-        },
-        smart_rename = {
-          enable = true,
-          keymaps = {
-            smart_rename = "<space>rr",
-          },
-        },
         navigation = {
           enable = true,
           keymaps = {
-            -- goto_definition = "gnd",
-            -- list_definitions = "gnD",
-            list_definitions_toc = "gld",
             goto_next_usage = "<a-n>",
             goto_previous_usage = "<a-S-n>",
           },

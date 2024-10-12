@@ -48,23 +48,20 @@ return {
     cmp.setup.filetype({ "c", "cpp", "jsx" }, {
       sources = {
         name = "buffer-lines",
-        option = {
-          leading_whitespace = false,
-          max_indents = 0,
-        }
+        option = { leading_whitespace = false, max_indents = 0 }
       },
       formatting = {
         format = function(entry, vim_item)
           if entry.source.name == "buffer-lines" then
             vim_item.menu = ' 󱉥 '
           end
-        end
+        end,
       }
     })
     cmp.setup({
 
       completion = {
-        completeopt = "menu,menuone,preview,noselect",
+        completeopt = "menu,menuone,preview,noinsert,noselect,fuzzy",
         -- completeopt = "menu,menuone,preview",
       },
       snippet = { -- configure how nvim-cmp interacts with snippet engine
@@ -77,19 +74,9 @@ return {
         ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
-        ["<C-h>"] = cmp.mapping.close(),        -- close completion window
-        ["<C-l>"] = cmp.mapping({
-          i = function(fallback)
-            if cmp.visible() and cmp.get_active_entry() then
-              cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-            else
-              cmp.mapping.confirm({ select = true })
-            end
-          end,
-          s = cmp.mapping.confirm({ select = true }),
-          c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-        }),
+        ["<C-Space>"] = cmp.mapping.complete(),             -- show completion suggestions
+        ["<C-h>"] = cmp.mapping.close(),                    -- close completion window
+        ['<C-l>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
       }),
       view = {
         entries = { name = 'custom' }
@@ -102,6 +89,7 @@ return {
         { name = "rg" },         -- text within current buffer
         { name = "async_path" }, -- file system paths
         { name = "calc" },       -- calculate
+        { name = "neorg" },
       }),
 
       -- configure lspkind for vs-code like pictograms in completion menu

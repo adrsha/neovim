@@ -2,21 +2,21 @@ return {
   "neovim/nvim-lspconfig",
 
   dependencies = {
-    'hrsh7th/nvim-cmp',
-    'hrsh7th/cmp-nvim-lsp'
+    "hrsh7th/nvim-cmp",
+    "hrsh7th/cmp-nvim-lsp",
   },
   opts = {
     inlay_hints = { enabled = true },
   },
   config = function()
     -- Setup language servers.
-    local lspconfig = require('lspconfig')
+    local lspconfig = require("lspconfig")
 
-    local configs = require('lspconfig/configs')
+    local configs = require("lspconfig/configs")
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-    lspconfig.pyright.setup {
+    lspconfig.pyright.setup({
       capabilities = capabilities,
       settings = {
         python = {
@@ -27,18 +27,22 @@ return {
         },
       },
       single_file_support = true,
-    }
+    })
 
-    lspconfig.clangd.setup {
+    lspconfig.dartls.setup({
       capabilities = capabilities,
       -- on_attach = on_attach
-    }
+    })
 
-
-    lspconfig.lua_ls.setup {
+    lspconfig.clangd.setup({
       capabilities = capabilities,
       -- on_attach = on_attach
-    }
+    })
+
+    lspconfig.lua_ls.setup({
+      capabilities = capabilities,
+      -- on_attach = on_attach
+    })
 
     lspconfig.rust_analyzer.setup({
       -- on_attach = on_attach,
@@ -46,7 +50,7 @@ return {
 
       diagnostics = {
         enable = true,
-      }
+      },
     })
 
     lspconfig.tsserver.setup({
@@ -61,10 +65,10 @@ return {
         configurationSection = { "html", "css", "javascript" },
         embeddedLanguages = {
           css = true,
-          javascript = true
+          javascript = true,
         },
-        provideFormatter = true
-      }
+        provideFormatter = true,
+      },
     })
     lspconfig.cssls.setup({
       -- on_attach = on_attach,
@@ -90,29 +94,32 @@ return {
             ["bem.enabled"] = true,
           },
         },
-      }
+      },
     })
-
+    -- vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
+    -- vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
+    -- vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
+    -- vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
     vim.diagnostic.config({
       virtual_text = false,
-      signs = true,
+      signs = false,
       underline = true,
-      update_in_insert = false,
+      update_in_insert = true,
       severity_sort = true,
     })
 
-    vim.api.nvim_create_autocmd("CursorHold", {
-      callback = function()
-        local opts = {
-          focusable = false,
-          close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-          border = 'single',
-          source = 'always',
-          prefix = ' ',
-          scope = 'cursor',
-        }
-        vim.diagnostic.open_float(nil, opts)
-      end
-    })
-  end
+    -- vim.api.nvim_create_autocmd("CursorHold", {
+    -- 	callback = function()
+    -- 		local opts = {
+    -- 			focusable = false,
+    -- 			close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+    -- 			border = "single",
+    -- 			source = "always",
+    -- 			prefix = " ",
+    -- 			scope = "cursor",
+    -- 		}
+    -- 		vim.diagnostic.open_float(nil, opts)
+    -- 	end,
+    -- })
+  end,
 }

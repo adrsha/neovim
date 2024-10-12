@@ -38,33 +38,33 @@ return {
       },
       color_overrides = {
         mocha = {
-          rosewater = "#e57474",
-          flamingo = "#F6BEA0",
-          mauve = "#c47fd5",
-          pink = "#E66E80",
-          red = "#e57474",
-          maroon = "#f57474",
-          peach = "#E68E80",
+          rosewater = "#F5D0DC",
+          flamingo = "#F4B9B0",
+          mauve = "#EF7E7E",
+          pink = "#F6C7D8",
+          red = "#EF7E7E",
+          maroon = "#e57474",
+          peach = "#F6C4A6",
           yellow = "#e5c76b",
           green = "#8ccf7e",
-          blue = "#57a0f8",
-          sky = "#67b0e8",
+          blue = "#6cb2bf",
+          sky = "#A3C9E0",
           teal = "#6cbfbf",
-          lavender = "#a7a0ff",
+          lavender = "#6cbfbf",
 
-          text = "#dadada",
-          subtext1 = "#e4e4e4",
-          subtext0 = "#dadada",
-          overlay2 = "#3c4346",
-          overlay1 = "#2d3437",
-          overlay0 = "#2d3437",
-          surface2 = "#282f32",
-          surface1 = "#282f32",
-          surface0 = "#1e2528",
+          text = "#DADADA",
+          subtext1 = "#b3b9b8",
+          subtext0 = "#DADADA",
+          overlay2 = "#333a3d",
+          overlay1 = "#232a2d",
+          overlay0 = "#232a2d",
+          surface2 = "#232a2d",
+          surface1 = "#232a2d",
+          surface0 = "#232a2d",
 
           base = "#141b1e",
-          mantle = "#1e2528",
-          crust = "#1e2528",
+          mantle = "#101718",
+          crust = "#232a2d",
         }
       },
       custom_highlights = {},
@@ -82,7 +82,7 @@ return {
     local colors = require("catppuccin.palettes").get_palette()
     local TelescopeColor = {
       TelescopeMatching = { fg = colors.flamingo },
-      TelescopeSelection = { fg = colors.text, bg = colors.surface0, bold = true },
+      TelescopeSelection = { bg = colors.surface0, bold = true },
 
       WinSeparator = { bg = colors.base, fg = colors.base },
       TelescopePromptPrefix = { bg = colors.mantle },
@@ -99,21 +99,33 @@ return {
       NormalFloat = { bg = colors.mantle, fg = colors.text },
       FloatBorder = { bg = colors.mantle, fg = colors.mantle },
       BufferTabpageFill = { bg = colors.mantle, fg = colors.text },
+      BufferLineBackground = { bg = colors.base, fg = colors.text },
+      BufferLineBuffer = { bg = colors.base, fg = colors.text },
       TabLineFill = { bg = colors.mantle, fg = colors.text },
       TabLine = { bg = colors.mantle, fg = colors.text },
+      LspDiagnosticHint = { fg = colors.green, bg = '#262d25' },
+      LspDiagnosticWarn = { fg = colors.yellow, bg = '#453e29' },
+      LspDiagnosticError = { fg = colors.red, bg = '#42232c' },
+      LspDiagnosticInfo = { fg = colors.blue },
       DiagnosticHint = { fg = colors.green, bg = '#262d25' },
       DiagnosticWarn = { fg = colors.yellow, bg = '#453e29' },
       DiagnosticError = { fg = colors.red, bg = '#42232c' },
       DiagnosticInfo = { fg = colors.blue },
-      DiagnosticLineNrHint = { fg = colors.green, bg = '#262d25' },
-      DiagnosticLineNrWarn = { fg = colors.yellow, bg = '#453e29' },
-      DiagnosticLineNrError = { fg = colors.red, bg = '#42232c' },
-      DiagnosticLineNrInfo = { fg = colors.blue },
-      DiagnosticUnderlineHint = { fg = colors.green, bg = '#262d25' },
-      DiagnosticUnderlineWarn = { fg = colors.yellow, bg = '#453e29' },
-      DiagnosticUnderlineError = { fg = colors.red, bg = '#42232c' },
-      DiagnosticUnderlineInfo = { fg = colors.blue },
+      DiagnosticLineHint = { fg = colors.green, bg = NONE },
+      DiagnosticLineWarn = { fg = colors.yellow, bg = NONE },
+      DiagnosticLineError = { fg = colors.red, bg = NONE },
+      DiagnosticLineInfo = { fg = colors.blue },
+      DiagnosticVirtualTextHint = { fg = colors.green, bg = '#262d25' },
+      DiagnosticVirtualTextWarn = { fg = colors.yellow, bg = '#453e29' },
+      DiagnosticVirtualTextError = { fg = colors.red, bg = '#42232c' },
+      DiagnosticVirtualTextInfo = { fg = colors.blue },
+      DiagnosticUnderlineHint = { bg = '#262d25' },
+      DiagnosticUnderlineWarn = { bg = '#453e29' },
+      DiagnosticUnderlineError = { bg = '#42232c' },
+      DiagnosticUnderlineInfo = { bg = '#252031' },
       LineNr = { fg = colors.overlay0 },
+      TreeSitterContext = { fg = colors.overlay0, bg = colors.base },
+      TreeSitterContextSeparator = { fg = colors.green, bg = colors.base },
     }
 
     for hl, col in pairs(TelescopeColor) do
@@ -127,10 +139,10 @@ return {
     " highlight! DiagnosticLineNrInfo guibg=#6E7EBF guifg=#B8C9EA gui=bold
     " highlight! DiagnosticLineNrHint guibg=#414560 guifg=#63718B gui=bold
 
-    sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticLineNrError
-    sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticLineNrWarn
-    sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticLineNrInfo
-    sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticLineNrHint
+    " sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticLineNrError
+    " sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticLineNrWarn
+    " sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticLineNrInfo
+    " sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticLineNrHint
 
     " highlight! CursorColumn guibg=#242933
     " highlight! link TelescopeBorder CursorColumn
